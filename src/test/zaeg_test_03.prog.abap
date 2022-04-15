@@ -1,4 +1,4 @@
-REPORT zaeg_grid_fall_01.
+REPORT zaeg_test_03.
 
 CLASS aeg1 DEFINITION.
   PUBLIC SECTION.
@@ -46,9 +46,9 @@ CLASS aeg1 IMPLEMENTATION.
           col->set_cell_type( if_salv_c_cell_type=>hotspot ).
         ENDDO.
         salv->get_display_settings( ).
+
         salv->display( ).
-      CATCH cx_salv_msg cx_salv_not_found INTO DATA(err_salv).
-        MESSAGE err_salv TYPE 'I'.
+      CATCH cx_salv_msg.
     ENDTRY.
 
   ENDMETHOD.
@@ -59,25 +59,22 @@ CLASS aeg1 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD fill.
-
     DATA(input) =
-       `21;19;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;` &&
-       `0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;0;0;0;1;1;1;1;0;0;0;1;1;1;1;0;0` &&
-       `0;0;1;1;1;0;0;1;1;1;1;1;1;0;1;1;1;1;1;1;0;0;1;1;1;1;0;0;1;1;0;0;1;1;0;1;1;0;0;1;1;0` &&
-       `0;0;0;1;1;0;0;0;0;0;0;1;1;0;0;0;0;0;1;1;0;0;0;0;1;1;0;0;0;0;0;0;1;1;0;0;0;0;0;1;1;0` &&
-       `0;0;0;1;1;0;0;0;0;0;1;1;0;0;0;1;1;1;1;0;0;0;0;0;1;1;0;0;0;0;1;1;0;0;0;0;1;1;1;1;0;0` &&
-       `0;0;0;1;1;0;0;0;1;1;0;0;0;0;0;0;0;0;1;1;0;0;0;0;1;1;0;0;1;1;0;0;0;0;0;0;0;0;0;1;1;0` &&
-       `0;0;0;1;1;0;0;1;1;0;0;0;0;0;1;1;0;0;1;1;0;0;0;1;1;1;1;0;1;1;1;1;1;1;0;1;1;1;1;1;1;0` &&
-       `0;0;1;1;1;1;0;1;1;1;1;1;1;0;0;1;1;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0` &&
-       `0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0` &&
-       `0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0`  .
-
+       `20;19;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0` &&
+       `0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;0;0;0;1;1;1;1;0;0;0;1;1;1;1;0` &&
+       `0;0;1;1;1;0;0;1;1;1;1;1;1;0;1;1;1;1;1;1;0;1;1;1;1;0;0;1;1;0;0;1;1;0;1;1;0;0;1;1` &&
+       `0;0;0;1;1;0;0;0;0;0;0;1;1;0;0;0;0;0;1;1;0;0;0;1;1;0;0;0;0;0;0;1;1;0;0;0;0;0;1;1` &&
+       `0;0;0;1;1;0;0;0;0;0;1;1;0;0;0;1;1;1;1;0;0;0;0;1;1;0;0;0;0;1;1;0;0;0;0;1;1;1;1;0` &&
+       `0;0;0;1;1;0;0;0;1;1;0;0;0;0;0;0;0;0;1;1;0;0;0;1;1;0;0;1;1;0;0;0;0;0;0;0;0;0;1;1` &&
+       `0;0;0;1;1;0;0;1;1;0;0;0;0;0;1;1;0;0;1;1;0;0;1;1;1;1;0;1;1;1;1;1;1;0;1;1;1;1;1;1` &&
+       `0;0;1;1;1;1;0;1;1;1;1;1;1;0;0;1;1;1;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0` &&
+       `0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0` &&
+       `0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0`  .
 
     DATA points TYPE STANDARD TABLE OF string WITH DEFAULT KEY.
-    DATA x TYPE i.
-    DATA y TYPE i.
+
     SPLIT input AT ';' INTO TABLE points.
-    cols = points[ 1 ].
+    cols = CONV i( points[ 1 ] ).
     DATA(rows) = CONV i( points[ 2 ] ).
 
     create_table( width = cols height = rows ).
@@ -85,12 +82,15 @@ CLASS aeg1 IMPLEMENTATION.
     DATA(idx) = 3.
 
     DO cols TIMES.
-      x = sy-index.
+      data(x) = sy-index.
       DO rows TIMES.
-        y = sy-index.
-        IF line_exists( points[ idx ] ) AND points[ idx ] = '1'.
-          set( x = x y = y ).
-        ENDIF.
+        data(y) = sy-index.
+        TRY.
+            IF points[ idx ] = '1'.
+              set( x = x y = y ).
+            ENDIF.
+          CATCH cx_sy_itab_line_not_found.
+        ENDTRY.
         ADD 1 TO idx.
       ENDDO.
     ENDDO.
@@ -117,8 +117,8 @@ CLASS aeg1 IMPLEMENTATION.
 
     DATA(comp) = VALUE cl_abap_structdescr=>component_table(
        FOR i = 1 WHILE i <= width
-         ( name = colname( i )
-           type = CAST cl_abap_datadescr( cl_abap_typedescr=>describe_by_name( 'ICON_D' ) ) ) ).
+         ( name = colname( i ) type = CAST cl_abap_datadescr( cl_abap_typedescr=>describe_by_name( 'ICON_D' ) ) )
+    ).
 
     TRY.
         DATA(digit) = cl_abap_structdescr=>create(
@@ -129,8 +129,8 @@ CLASS aeg1 IMPLEMENTATION.
                                  p_line_type  = digit ).
 
         CREATE DATA rdigits TYPE HANDLE digits.
-        FIELD-SYMBOLS <digits> TYPE STANDARD TABLE.
-        ASSIGN rdigits->* TO <digits>.
+        FIELD-SYMBOLS <digits> TYPE STANDARD TABLE. "XXX
+        ASSIGN rdigits->* TO <digits>. "XXX
         DO height TIMES.
           APPEND INITIAL LINE TO <digits>.
         ENDDO.

@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <PROGDIR>
-    <NAME>ZAEG_GRID_FALL_02</NAME>
+    <NAME>ZAEG_TEST_03</NAME>
     <SUBC>1</SUBC>
     <RLOAD>E</RLOAD>
     <FIXPT>X</FIXPT>
@@ -12,8 +12,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>ABAP Exit Games: Grid Fall - Quest 02</ENTRY>
-     <LENGTH>48</LENGTH>
+     <ENTRY>abap exit game test 2</ENTRY>
+     <LENGTH>21</LENGTH>
     </item>
    </TPOOL>
   </asx:values>
